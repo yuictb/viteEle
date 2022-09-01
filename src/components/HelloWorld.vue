@@ -4,14 +4,15 @@
       <el-input v-model.trim="modelcontent.userName"></el-input>
     </el-form-item>
     <el-form-item prop="passwd" label="密码">
-      <el-input v-model.trim="modelcontent.passwd"></el-input>
+      <el-input  v-model.trim="modelcontent.passwd"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm(ruleFormRef)">Submit</el-button>
       <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
     </el-form-item>
   </el-form>
-
+   <input v-focus="{a:3}" type="text">
+   <button v-alert>按钮</button>
 </template>
 <script setup lang="ts">
 import { ref, reactive } from 'vue'

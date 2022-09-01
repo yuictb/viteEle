@@ -8,7 +8,7 @@
     </a>
     <Test />
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <HelloWorld  />
 </template>
 
 <script setup lang="ts">
