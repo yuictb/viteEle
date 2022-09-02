@@ -888,6 +888,11 @@ unplugin@^0.9.0, unplugin@^0.9.3:
     webpack-sources "^3.2.3"
     webpack-virtual-modules "^0.4.4"
 
+vform3-builds@^3.0.8:
+  version "3.0.8"
+  resolved "https://registry.npmmirror.com/vform3-builds/-/vform3-builds-3.0.8.tgz#e1ecb435aef5b04d154349cf2d5e630c854e8bb3"
+  integrity sha512-ipfwAlFcZ87/asYmeYBqAtwXlq7pB4WRpwGsF2dW310GUmy8RrIm5sRklntTi4m6xuZCXwhkOFXkHokTOCkCpg==
+
 vite@^3.0.7:
   version "3.0.9"
   resolved "https://registry.npmmirror.com/vite/-/vite-3.0.9.tgz#45fac22c2a5290a970f23d66c1aef56a04be8a30"
