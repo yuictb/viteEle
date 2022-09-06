@@ -1,7 +1,7 @@
 import { Directive } from "vue";
 import * as  directives  from "./focus";
 // const directives = { focus, alert };
-console.log(directives)
+// console.log(directives)
 export default {
   install(app: any) {
     Object.keys(directives).forEach((key: any) => {
