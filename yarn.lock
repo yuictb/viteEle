@@ -182,6 +182,11 @@
     "@vue/compiler-dom" "3.2.38"
     "@vue/shared" "3.2.38"
 
+"@vue/devtools-api@^6.1.4":
+  "integrity" "sha512-OEgAMeQXvCoJ+1x8WyQuVZzFo0wcyCmUR3baRVLmKBo1LmYZWMlRiXlux5jd0fqVJu6PfDbOrZItVqUEzLobeQ=="
+  "resolved" "https://registry.npmmirror.com/@vue/devtools-api/-/devtools-api-6.2.1.tgz"
+  "version" "6.2.1"
+
 "@vue/reactivity-transform@3.2.38":
   "integrity" "sha512-3SD3Jmi1yXrDwiNJqQ6fs1x61WsDLqVk4NyKVz78mkaIRh6d3IqtRnptgRfXn+Fzf+m6B1KxBYWq1APj6h4qeA=="
   "resolved" "https://registry.npmmirror.com/@vue/reactivity-transform/-/reactivity-transform-3.2.38.tgz"
@@ -855,6 +860,13 @@
   "integrity" "sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A=="
   "resolved" "https://registry.npmmirror.com/vue-demi/-/vue-demi-0.13.11.tgz"
   "version" "0.13.11"
+
+"vue-router@^4.1.5":
+  "integrity" "sha512-IsvoF5D2GQ/EGTs/Th4NQms9gd2NSqV+yylxIyp/OYp8xOwxmU8Kj/74E9DTSYAyH5LX7idVUngN3JSj1X4xcQ=="
+  "resolved" "https://registry.npmmirror.com/vue-router/-/vue-router-4.1.5.tgz"
+  "version" "4.1.5"
+  dependencies:
+    "@vue/devtools-api" "^6.1.4"
 
 "vue-tsc@^0.39.5":
   "integrity" "sha512-jhTsrKhZkafpIeN4Cbhr1K53hNfa/oesSrlh7hUaeHyCk55VhZT6oJkwJbtqN4MYkWZIwPrm3/xTwsELuf2ocg=="

@@ -107,7 +107,13 @@ const beforeAvatarUpload: UploadProps["beforeUpload"] = (rawFile) => {
 // 删除列表文件前的钩子
 const beforeRemove: UploadProps["beforeRemove"] = (uploadFile, uploadFiles) => {
   return ElMessageBox.confirm(
-    `Cancel the transfert of ${uploadFile.name} ?`
+    `你确定要删除 ${uploadFile.name} ?`,
+    "提示",
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
   ).then(
     () => true,
     () => false
