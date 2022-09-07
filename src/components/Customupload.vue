@@ -1,20 +1,22 @@
 <template>
   <el-upload
     class="avatar-uploader"
+    ref="uploadRef"
     multiple
     drag
     :action="action"
     :limit="limit"
+    :auto-upload="false"
     :accept="accept"
     :list-type="listType"
     v-model:file-list="fileList"
     :on-success="handleAvatarSuccess"
     :on-error="handleAvatarErroe"
     :before-upload="beforeAvatarUpload"
-    :before-remove="beforeRemove"
     :on-remove="handleRemove"
     :on-exceed="handleExceed"
     :on-preview="handlePreview"
+    :http-request="custload"
   >
     <img v-if="imageUrl" :src="imageUrl" class="avatar" />
     <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
@@ -24,53 +26,45 @@
       </div>
     </template>
   </el-upload>
+  <el-button type="success" @click="submitUpload">确定上传</el-button>
 </template>
 <script lang="ts" setup>
-import { ref, defineProps, defineEmits } from "vue";
+import { ref } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { upload, download ,delfile} from "../apis/index";
+import { upload, download, delfile } from "../apis/index";
 import { Message, Plus } from "@element-plus/icons-vue";
 
-import type { UploadProps, UploadUserFile } from "element-plus";
-import { reject } from "lodash";
+import type { UploadProps, UploadInstance, UploadUserFile } from "element-plus";
+const uploadRef = ref<UploadInstance>();
+// 点击列表的操作
 const handlePreview: UploadProps["onPreview"] = (uploadFile) => {
   emits("downfile", uploadFile);
-  download({uid:uploadFile.uid})
+  download({ uid: uploadFile.uid });
 };
-const props = defineProps({
-  tips: {
-    type: String,
-    default: "提示用户上传文件类型大小",
-  },
-  action: {
-    type: String,
-    default: "",
-  },
-  limit: {
-    type: Number,
-    default: 2,
-  },
-  accept: {
-    // default:'.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    type: String,
-    default: "",
-  },
-  listType: {
-    type: String,
-    default: "text",
-  },
-  fileList: {
-    type: Array,
-    default: () => {
-      // name: 'food.jpeg',      //默认类型
-      // url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-    },
-    return: [],
-  },
-  fileSize: {
-    type: Number,
-    default: 2,
-  },
+// 自定义上传
+const custload = (options: any) => {
+  console.log(options, "=====");
+};
+const submitUpload = () => {
+  uploadRef.value!.submit();
+};
+interface Propsrule {
+  tips?: string;
+  action?: string;
+  limit: number;
+  accept: string;
+  listType: string;
+  fileList: object[];
+  fileSize: number;
+}
+const props= withDefaults(defineProps<Propsrule>(), {
+  tips: "提示用户上传文件类型",
+  action: "",
+  limit: 2,
+  accept: "",
+  listType: "text",
+  fileList: () => [],
+  fileSize: 2,
 });
 const emits = defineEmits(["fileRemoves", "downfile"]);
 const imageUrl = ref("");
@@ -101,29 +95,31 @@ const beforeAvatarUpload: UploadProps["beforeUpload"] = (rawFile) => {
   // upload(rawFile).then((res: any) => {
   //   console.log(res);
   // });
-  return true;
+  //   return true;
 };
 // 删除列表文件前的钩子
-const beforeRemove: UploadProps["beforeRemove"] = (uploadFile, uploadFiles) => {
-  console.log(uploadFile.uid)
-  let flag:boolean=true
-  delfile({uid:uploadFile.uid}).then((res:any)=>{
-     console.log(res);
-     flag=res
-  })
-  return ElMessageBox.confirm(`确认要删除 ${uploadFile.name} ?`, "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning",
-  }).then(
-    () => true
-  ).catch(()=>false);
-};
+// const beforeRemove: UploadProps["beforeRemove"] = (uploadFile, uploadFiles) => {
+//   console.log(uploadFile.uid);
+//   let flag: boolean = true;
+//   delfile({ uid: uploadFile.uid }).then((res: any) => {
+//     console.log(res);
+//     flag = res;
+//   });
+//   return ElMessageBox.confirm(`确认要删除 ${uploadFile.name} ?`, "提示", {
+//     confirmButtonText: "确定",
+//     cancelButtonText: "取消",
+//     type: "warning",
+//   })
+//     .then(() => true
+
+//     )
+//     .catch(() => false);
+// };
 // 移除列表文件的操作
 const handleRemove: UploadProps["onRemove"] = (file, uploadFiles) => {
   console.log(file, uploadFiles);
   // delfile({uid:file.uid).then((res:any)=>{
-     
+
   // })
   ElMessage({
     message: "删除成功",

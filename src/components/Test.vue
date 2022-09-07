@@ -11,10 +11,10 @@ const jump = () => {
   messtest('warning', '这是一个内容')
 }
 const test02 = () => {
-  interactiveBox('确定吗', 'success').then(() => {
+  interactiveBox('确定吗?', 'warning').then(() => {
     messtest('success', '恭喜你修改成功')
   }).catch(() => {
-    messtest('error', '修改失败')
+    
   })
 }
 

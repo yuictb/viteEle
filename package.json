@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "element-plus": "^2.2.15",
     "vform3-builds": "^3.0.8",
     "vue": "^3.2.37"
