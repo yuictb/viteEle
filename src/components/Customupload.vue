@@ -6,10 +6,10 @@
     drag
     :action="action"
     :limit="limit"
-    :auto-upload="false"
+    :auto-upload="isauto"
     :accept="accept"
     :list-type="listType"
-    v-model:file-list="fileList"
+    :file-list="fileList"
     :on-success="handleAvatarSuccess"
     :on-error="handleAvatarErroe"
     :before-upload="beforeAvatarUpload"
@@ -17,6 +17,7 @@
     :on-exceed="handleExceed"
     :on-preview="handlePreview"
     :http-request="custload"
+    :before-remove="beforeRemove"
   >
     <img v-if="imageUrl" :src="imageUrl" class="avatar" />
     <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
@@ -26,12 +27,14 @@
       </div>
     </template>
   </el-upload>
-  <el-button type="success" @click="submitUpload">确定上传</el-button>
+  <el-button v-if="!props.isauto" type="success" @click="submitUpload"
+    >确定上传</el-button
+  >
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { upload, download, delfile } from "../apis/index";
+// import { upload  } from "../apis/index";
 import { Message, Plus } from "@element-plus/icons-vue";
 
 import type { UploadProps, UploadInstance, UploadUserFile } from "element-plus";
@@ -39,34 +42,42 @@ const uploadRef = ref<UploadInstance>();
 // 点击列表的操作
 const handlePreview: UploadProps["onPreview"] = (uploadFile) => {
   emits("downfile", uploadFile);
-  download({ uid: uploadFile.uid });
 };
 // 自定义上传
 const custload = (options: any) => {
   console.log(options, "=====");
+  emits("uploadfile", options);
 };
 const submitUpload = () => {
   uploadRef.value!.submit();
 };
 interface Propsrule {
-  tips?: string;
+  tips?: string; //提示用户上传文件属性 大小
   action?: string;
-  limit: number;
-  accept: string;
-  listType: string;
-  fileList: object[];
-  fileSize: number;
+  limit?: number; // 此处限制上传文件个数
+  accept?: string; // 限制上传文件类型
+  listType?: string; // 文件列表展示类型
+  fileList?: object[]; // 上传文件数据
+  fileSize?: number; // 限制文件大小 单位( M )
+  isauto?: boolean; // 是否开启自动上传功能
 }
-const props= withDefaults(defineProps<Propsrule>(), {
+const props = withDefaults(defineProps<Propsrule>(), {
   tips: "提示用户上传文件类型",
   action: "",
   limit: 2,
-  accept: "",
+  accept:
+    ".doc,.docx,.pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   listType: "text",
   fileList: () => [],
   fileSize: 2,
+  isauto: true,
 });
-const emits = defineEmits(["fileRemoves", "downfile"]);
+const emits = defineEmits([
+  "fileRemove",
+  "downfile",
+  "uploadfile",
+  "update:fileList",
+]);
 const imageUrl = ref("");
 const handleExceed = () => {
   ElMessage.error(`最多上传${props.limit}个文件`);
@@ -92,35 +103,19 @@ const beforeAvatarUpload: UploadProps["beforeUpload"] = (rawFile) => {
     ElMessage.error("文件超出规定大小");
     return false;
   }
-  // upload(rawFile).then((res: any) => {
-  //   console.log(res);
-  // });
-  //   return true;
 };
 // 删除列表文件前的钩子
-// const beforeRemove: UploadProps["beforeRemove"] = (uploadFile, uploadFiles) => {
-//   console.log(uploadFile.uid);
-//   let flag: boolean = true;
-//   delfile({ uid: uploadFile.uid }).then((res: any) => {
-//     console.log(res);
-//     flag = res;
-//   });
-//   return ElMessageBox.confirm(`确认要删除 ${uploadFile.name} ?`, "提示", {
-//     confirmButtonText: "确定",
-//     cancelButtonText: "取消",
-//     type: "warning",
-//   })
-//     .then(() => true
-
-//     )
-//     .catch(() => false);
-// };
+const beforeRemove: UploadProps["beforeRemove"] = (uploadFile, uploadFiles) => {
+  return ElMessageBox.confirm(
+    `Cancel the transfert of ${uploadFile.name} ?`
+  ).then(
+    () => true,
+    () => false
+  );
+};
 // 移除列表文件的操作
 const handleRemove: UploadProps["onRemove"] = (file, uploadFiles) => {
-  console.log(file, uploadFiles);
-  // delfile({uid:file.uid).then((res:any)=>{
-
-  // })
+  emits("fileRemove", file);
   ElMessage({
     message: "删除成功",
     type: "success",

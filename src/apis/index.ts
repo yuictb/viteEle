@@ -1,6 +1,6 @@
 import { server } from "../utils/request";
 // 文件上传 - 获取文件列表
-export const getfile = () => {
+export const getFilelist = () => {
   return server.post("/oss/list");
 };
 // 文件上传 - 上传
@@ -14,11 +14,11 @@ export const upload = (rawFile: any) => {
   });
 };
 // 文件上传 - 下载
-export const download=(params:any)=>{
+export const downFile=(params:any)=>{
    console.log(params)
     return server.post('/oss/download',params)
 }
 // 文件上传 - 删除文件
-export const delfile=(params:any)=>{
+export const delFile=(params:any)=>{
   return server.post('/oss/delete',params)
 }

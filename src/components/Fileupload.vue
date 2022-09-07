@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <el-upload
     class="avatar-uploader"
     multiple
@@ -166,4 +166,4 @@ const handleRemove: UploadProps["onRemove"] = (file, uploadFiles) => {
   height: 178px;
   text-align: center;
 }
-</style>
+</style> -->
