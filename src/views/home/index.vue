@@ -28,10 +28,10 @@ const fileList = ref<UploadUserFile[]>([
   },
 ]);
 // 获取文件列表
-getFilelist().then((res: any) => {
-  console.log(res);
-  fileList.value = res;
-});
+// getFilelist().then((res: any) => {
+//   console.log(res);
+//   fileList.value = res;
+// });
 // 上传功能
 const uploadfile = (fl: any) => {
   console.log(fl);

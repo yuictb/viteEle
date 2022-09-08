@@ -13,10 +13,15 @@ declare module '@vue/runtime-core' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElPagination: typeof import('element-plus/es')['ElPagination']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Fileupload: typeof import('./src/components/Fileupload.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    Pagenation: typeof import('./src/components/Pagenation.vue')['default']
+    Pagination: typeof import('./src/components/Pagination.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     Test: typeof import('./src/components/Test.vue')['default']
   }
 }
