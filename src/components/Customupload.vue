@@ -34,7 +34,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
-// import { upload  } from "../apis/index";
 import { Message, Plus } from "@element-plus/icons-vue";
 
 import type { UploadProps, UploadInstance, UploadUserFile } from "element-plus";
@@ -52,7 +51,7 @@ const submitUpload = () => {
   uploadRef.value!.submit();
 };
 interface Propsrule {
-  tips?: string; //提示用户上传文件属性 大小
+  tips?: string; //提示用户上传文件类型 大小
   action?: string;
   limit?: number; // 此处限制上传文件个数
   accept?: string; // 限制上传文件类型
@@ -62,7 +61,7 @@ interface Propsrule {
   isauto?: boolean; // 是否开启自动上传功能
 }
 const props = withDefaults(defineProps<Propsrule>(), {
-  tips: "提示用户上传文件类型",
+  tips: "提示用户上传文件类型大小",
   action: "",
   limit: 2,
   accept:
@@ -73,17 +72,17 @@ const props = withDefaults(defineProps<Propsrule>(), {
   isauto: true,
 });
 const emits = defineEmits([
-  "fileRemove",
-  "downfile",
-  "uploadfile",
-  "update:fileList",
+  "fileRemove", //移除文件的回调
+  "downfile", //下载文件的回调
+  "uploadfile", //上传文件的回调
+  "update:fileList", //双向绑定文件列表数据
 ]);
 const imageUrl = ref("");
 const handleExceed = () => {
   ElMessage.error(`最多上传${props.limit}个文件`);
 };
 
-// 符合验证规则,文件上传成功操作
+// 符合验证规则,文件上传成功操作       注：开启自定义上传 http-request 此钩子无效
 const handleAvatarSuccess: UploadProps["onSuccess"] = (
   response,
   uploadFile
@@ -106,9 +105,11 @@ const beforeAvatarUpload: UploadProps["beforeUpload"] = (rawFile) => {
 };
 // 删除列表文件前的钩子
 const beforeRemove: UploadProps["beforeRemove"] = (uploadFile, uploadFiles) => {
-  return ElMessageBox.confirm(
-    `Cancel the transfert of ${uploadFile.name} ?`
-  ).then(
+  return ElMessageBox.confirm(`你确定要删除 ${uploadFile.name} ?`, "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(
     () => true,
     () => false
   );

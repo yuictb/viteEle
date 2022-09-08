@@ -187,6 +187,11 @@
     "@vue/compiler-dom" "3.2.38"
     "@vue/shared" "3.2.38"
 
+"@vue/devtools-api@^6.1.4":
+  "integrity" "sha512-OEgAMeQXvCoJ+1x8WyQuVZzFo0wcyCmUR3baRVLmKBo1LmYZWMlRiXlux5jd0fqVJu6PfDbOrZItVqUEzLobeQ=="
+  "resolved" "https://registry.npmmirror.com/@vue/devtools-api/-/devtools-api-6.2.1.tgz"
+  "version" "6.2.1"
+
 "@vue/reactivity-transform@3.2.38":
   version "3.2.38"
   resolved "https://registry.npmmirror.com/@vue/reactivity-transform/-/reactivity-transform-3.2.38.tgz"
