@@ -9,11 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Customupload: typeof import('./src/components/Customupload.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElForm: typeof import('element-plus/es')['ElForm']
-    ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElInput: typeof import('element-plus/es')['ElInput']
-    ElRow: typeof import('element-plus/es')['ElRow']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Fileupload: typeof import('./src/components/Fileupload.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
